@@ -2,130 +2,168 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mundo celular</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Servicio Pausado</title>
 <style>
   :root {
-    --bg: #F2F4EF;
-    --card: #FFFFFF;
-    --border: #E3E1D6;
-    --border-hover: #C8C5B8;
-    --ink: #1E2321;
-    --ink-soft: #5B5F58;
-    --gold: #A8710C;
-    --gold-bg: #F4E8D2;
-    --green: #1F6E4A;
-    --green-bg: #DCEEE3;
+    --bg: #0f1115;
+    --card-bg: #1a1d24;
+    --accent: #e5484d;
+    --accent-soft: rgba(229, 72, 77, 0.15);
+    --text: #f5f5f7;
+    --text-dim: #a1a1aa;
+    --border: #2a2d36;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    box-sizing: border-box;
   }
   * { box-sizing: border-box; }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
   body {
     margin: 0;
-    min-height: 100vh;
+    min-height: 100%;
     background: var(--bg);
-    color: var(--ink);
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 40px 20px;
+    padding: 24px;
   }
-  main { width: 100%; max-width: 380px; }
-  .header { text-align: center; margin-bottom: 32px; }
-  .avatar {
-    display: block;
-    width: 84px;
-    height: 84px;
-    margin: 0 auto 16px;
-    border-radius: 50%;
-    object-fit: cover;
+  .card {
+    width: 100%;
+    max-width: 440px;
+    background: var(--card-bg);
     border: 1px solid var(--border);
-    background: var(--card);
+    border-radius: 20px;
+    padding: 36px 28px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
   }
-  .header h1 {
-    font-family: 'Fraunces', serif;
-    font-weight: 600;
-    font-size: 28px;
-    line-height: 1.2;
-    margin: 0 0 8px;
-    letter-spacing: -0.01em;
-  }
-  .header p { margin: 0; color: var(--ink-soft); font-size: 15px; }
-  .links { display: flex; flex-direction: column; gap: 12px; }
-  .link-btn {
+  .icon-wrap {
+    width: 68px;
+    height: 68px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    background: var(--accent-soft);
     display: flex;
     align-items: center;
+    justify-content: center;
+  }
+  .icon-wrap svg {
+    width: 32px;
+    height: 32px;
+    stroke: var(--accent);
+  }
+  h1 {
+    font-size: 1.4rem;
+    letter-spacing: 0.03em;
+    margin: 0 0 10px;
+    color: var(--accent);
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  p.desc {
+    color: var(--text-dim);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin: 0 0 28px;
+  }
+  .deadline {
+    background: var(--accent-soft);
+    border: 1px solid rgba(229,72,77,0.35);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 28px;
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+  .deadline strong { color: var(--accent); }
+  .info {
+    text-align: left;
+    border-top: 1px solid var(--border);
+    padding-top: 22px;
+    display: flex;
+    flex-direction: column;
     gap: 14px;
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 16px 18px;
-    text-decoration: none;
-    color: var(--ink);
-    transition: border-color .15s ease, transform .15s ease;
   }
-  .link-btn:hover { border-color: var(--border-hover); transform: translateY(-1px); }
-  .link-btn:active { transform: translateY(0); }
-  .link-btn:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
-  .icon {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
+  .row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .row .label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-dim);
+    display: block;
+  }
+  .row .value {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .row-icon {
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    background: #24272f;
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-shrink: 0;
   }
-  .icon svg { width: 20px; height: 20px; }
-  .icon.gold { background: var(--gold-bg); color: var(--gold); }
-  .icon.green { background: var(--green-bg); color: var(--green); }
-  .label { flex: 1; font-size: 15px; font-weight: 500; }
-  .chevron { color: #B7B4A8; flex-shrink: 0; }
-  footer { text-align: center; margin-top: 28px; font-size: 12px; color: #9B988C; }
+  .row-icon svg {
+    width: 18px;
+    height: 18px;
+    stroke: var(--text);
+  }
+  a.wa-btn {
+    margin-top: 24px;
+    display: block;
+    text-decoration: none;
+    background: #22c55e;
+    color: #0f1115;
+    font-weight: 700;
+    padding: 14px;
+    border-radius: 12px;
+    font-size: 0.95rem;
+  }
+  a.wa-btn:active { opacity: 0.85; }
 </style>
 </head>
 <body>
-<main>
-
-  <div class="header">
-    <img class="avatar" src="Mundocelular.jpg" alt="Foto del negocio">
-
-    <h1>Mundo Celular</h1>
-    <p>Elegí una opción</p>
+  <div class="card">
+    <div class="icon-wrap">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    </div>
+    <h1>Servicio pausado</h1>
+    <p class="desc">Este servicio fue pausado por falta de pago.</p>
+    <div class="deadline">
+      Si no se regulariza el pago antes del <strong>miércoles 23 de septiembre</strong>, la tarjeta será retirada.
+    </div>
+    <div class="info">
+      <div class="row">
+        <div class="row-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 8l10 6 10-6"/></svg>
+        </div>
+        <div>
+          <span class="label">Alias para transferencia</span>
+          <span class="value">rama.baglione</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="row-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </div>
+        <div>
+          <span class="label">WhatsApp</span>
+          <span class="value">11 4410-2657</span>
+        </div>
+      </div>
+    </div>
+    <a class="wa-btn" href="https://wa.me/5491144102657" target="_blank" rel="noopener">Escribir por WhatsApp</a>
   </div>
-
-  <div class="links">
-
-    <a class="link-btn" href="https://search.google.com/local/writereview?placeid=ChIJpcY8q8y5vJURLo7oVp3nZUo" target="_blank" rel="noopener">
-      <span class="icon gold" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
-        </svg>
-      </span>
-      <span class="label">Dejanos una reseña en Google</span>
-      <span class="chevron" aria-hidden="true">
-        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
-      </span>
-    </a>
-
-    <a class="link-btn" href="https://wa.me/5491159713875" target="_blank" rel="noopener">
-      <span class="icon green" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
-        </svg>
-      </span>
-      <span class="label">Escribinos por WhatsApp</span>
-      <span class="chevron" aria-hidden="true">
-        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
-      </span>
-    </a>
-
-  </div>
-
-  <footer>Tocá o escaneá cuando quieras</footer>
-
-</main>
 </body>
 </html>
